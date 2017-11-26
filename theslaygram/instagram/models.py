@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.db.models import Q, signals
 from django.dispatch import receiver
+from tinymce.models import HTMLField
 # Create your models here.
 Gender_Choices = (
     ('F', 'female'),
@@ -37,3 +38,27 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+
+class Post(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='post')
+    picture = models.ImageField(upload_to='pictures/', blank=True)
+    caption = models.TextField(max_length=140)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['pub_date']
+
+    def save_post(self):
+        self.save()
+
+    @classmethod
+    def display_posts(cls):
+        posts = cls.objects.all()
+        return posts
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
