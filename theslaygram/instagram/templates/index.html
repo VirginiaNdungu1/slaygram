@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block body %}
+  {{block.super}}
+
+  <div class="text-center">
+    <h1 class="text-center">slaygram</h1>
+    <hr>
+    <h3 class="text-center">A simple, fun and creative way to capture and share photos with friends and family</h3>
+  </div>
+
+{% endblock %}
