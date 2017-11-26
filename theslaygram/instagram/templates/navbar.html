@@ -54,7 +54,7 @@
                 <a href="/">following</a>
               </li>
               <li>
-                <a href="/profiles/edit/">{{ user.username }}</a>
+                <a href="{% url 'post' %}">{{ user.username }}</a>
               </li>
               <li>
                 <a href="/logout">Logout</a>
