@@ -2,3 +2,14 @@ h1 {
   color: teal;
   text-align: center;
 }
+
+.login-btn {
+  text-align: center;
+  margin-top: 3%;
+  color: white;
+  background-color: teal;
+}
+
+.login-btn input {
+  background-color: teal;
+}
