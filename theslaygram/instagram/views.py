@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from .forms import UserProfileForm, UserForm, NewPostForm
-from .models import Profile
+from .models import Profile, Post
 
 
 # Create your views here.
@@ -13,7 +13,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 @transaction.atomic
 def update_user_profile(request):
     if request.method == 'POST':
@@ -37,7 +37,7 @@ def update_user_profile(request):
     return render(request, 'profiles/profile.html', {'user_form': user_form, 'user_profile': user_profile, })
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
     if request.method == 'POST':
@@ -49,3 +49,9 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render(request, 'posts/new-post.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def posts(request):
+    posts = Post.display_posts()
+    return render(request, 'profiles/posts.html', {"posts": posts})
