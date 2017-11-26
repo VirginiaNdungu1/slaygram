@@ -5,6 +5,7 @@
 {% block styles%}
   {% bootstrap_css %}
   <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 {% endblock %}
 {% block body %}
   <!-- Navigation -->
@@ -23,9 +24,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
           <a class="navbar-brand" href="/">
             <img src={% static "images/2972c40a-15cb-4acd-8926-73b18aaf1a58.png" %}></a>
+          <a class="navbar-brand" href="#">
+            <i class="icon-camera-retro icon-large"></i>
+            slaygram
+          </a>
 
         </div>
         <!-- END Toggle buttons and brand -->
@@ -50,7 +54,7 @@
                 <a href="/">following</a>
               </li>
               <li>
-                <a href="#">{{ user.username }}</a>
+                <a href="/profiles/edit/">{{ user.username }}</a>
               </li>
               <li>
                 <a href="/logout">Logout</a>
