@@ -7,6 +7,7 @@ urlpatterns = [
     url('^$', views.index, name='slaygram'),
     url('^profiles/edit', views.update_user_profile, name="updateuserprofile"),
     url('^upload/new_post', views.new_post, name="new_post"),
+    url('^profiles', views.posts, name="post"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
