@@ -1,0 +1,38 @@
+<!-- {% extends "registration/base.html" %} -->
+{% load bootstrap3 %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <!-- Empty div -->
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form action='/profiles/edit/' method="post">
+          {% csrf_token %}
+
+          {% bootstrap_form user_form %}
+          <hr>
+          <h3>Additional Information
+          </h3>
+          <hr>
+          {% bootstrap_form user_profile %}
+          <!-- {{ user_form.as_p }} -->
+          <!-- {{ user_profile.as_p }} -->
+
+          <div class="form-group">
+            <button type="submit">Edit Profile</button>
+          </div>
+
+          <input type="hidden" name="next" value="{{next}}">
+
+        </form>
+        {{user.userprofile.bio}}
+      </div>
+      <!-- empty div -->
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+{% endblock %}

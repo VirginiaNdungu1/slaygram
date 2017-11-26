@@ -1,15 +1,20 @@
-h1 {
-  color: teal;
-  text-align: center;
-}
+    h1 {
+      color: teal;
+      text-align: center;
+    }
 
-.login-btn {
-  text-align: center;
-  margin-top: 3%;
-  color: white;
-  background-color: teal;
-}
+    .login-btn {
+      text-align: center;
+      margin-top: 3%;
+      color: white;
+      background-color: teal;
+    }
 
-.login-btn input {
-  background-color: teal;
-}
+    .login-btn input {
+      background-color: teal;
+    }
+
+    .panel-heading h3 {
+      font-size: 24px;
+      color: teal;
+    }
