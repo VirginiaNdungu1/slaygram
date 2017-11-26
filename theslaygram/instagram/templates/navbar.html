@@ -41,19 +41,29 @@
                 </div>
               </form>
             </li>
-
-            <li>
-              <a href="/">collections</a>
-            </li>
-            <li>
-              <a href="/">about</a>
-            </li>
             <!-- action="/" -->
-
+            {% if user.is_authenticated %}
+              <li>
+                <a href="/">discover</a>
+              </li>
+              <li>
+                <a href="/">following</a>
+              </li>
+              <li>
+                <a href="#">{{ user.username }}</a>
+              </li>
+              <li>
+                <a href="/logout">Logout</a>
+              </li>
+            {% else %}
+              <li>
+                <a class='btn btn-default' href="/accounts/login">Login</a>
+              </li>
+              <li></li>
+            {% endif %}
           </ul>
         </div>
         <!-- END Top navbar -->
-
       </div>
     </nav>
     <!-- END Top navbar & branding -->
