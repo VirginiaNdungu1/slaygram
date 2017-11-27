@@ -1,0 +1,53 @@
+<!-- {% extends "registration/base.html" %} -->
+{% load bootstrap3 %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <!-- Empty div -->
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <div class="col-md-7">
+          <p>
+            {{request.user}}</p>
+          <p>{{request.user.profile.bio}}<br></p>
+          <a href="https://github.com/VirginiaNdungu1/">
+            {{request.user.profile.portfolio}}</a>
+          <hr>
+
+          <div class="card">
+            <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
+            <div class="container">
+              <p>{{post.caption}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 edit_profile">
+          <a href="{% url 'updateuserprofile'%}">
+            <button type="button" name="button">Edit Profile</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- empty div -->
+      <!-- <div class="col-md-2"></div> -->
+    </div>
+  </div>
+{% endblock %}
+
+<form action='/profiles/' method="post">
+  {% csrf_token %}
+  {% bootstrap_form review_form %}
+  <!-- {{ user_form.as_p }} -->
+  <!-- {{ review_form.as_p }} -->
+
+  <div class="form-group">
+    <button type="submit">comment</button>
+  </div>
+
+  <input type="hidden" name="next" value="{{next}}">
+
+</form>
