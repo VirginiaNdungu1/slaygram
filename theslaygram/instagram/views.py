@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
-from .forms import UserProfileForm, UserForm, NewPostForm
+from django.http import Http404
+from .forms import UserProfileForm, UserForm, NewPostForm, NewReviewForm
 from .models import Profile, Post
 
 
@@ -52,6 +53,28 @@ def new_post(request):
 
 
 @login_required(login_url='/accounts/login/')
-def posts(request):
-    posts = Post.display_posts()
+def posts(request, user_id):
+    user_id = request.user.id
+    posts = Post.display_users_posts(user_id)
+    # return posts
     return render(request, 'profiles/posts.html', {"posts": posts})
+
+
+@login_required(login_url='/accounts/login/')
+def single_post(request, pictures):
+    try:
+        post = Post.objects.get(id=pictures)
+        current_user = request.user
+        current_post = post
+        if request.method == 'POST':
+            review_form = NewReviewForm(request.POST)
+            if current_user.is_authenticated and review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.users = current_user
+                review.pictures = current_post
+                review.save()
+        else:
+            review_form = NewReviewForm()
+    except DoesNotExist:
+        raise Http404
+    return render(request, "profiles/post.html", {"post": post, "review_form": review_form})
