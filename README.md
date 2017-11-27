@@ -57,8 +57,6 @@ Running on http://127.0.0.1:8000/
             whitenoise==3.3.1
             dj-database-url==0.4.2
 
-[splashIt](https://slaygram.herokuapp.com/)
-
 
 ### Running Tests
 
