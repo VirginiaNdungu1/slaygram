@@ -1,17 +1,43 @@
-{% extends 'base.html' %}
+<!-- {% extends "registration/base.html" %} -->
+{% load bootstrap3 %}
 {% load static %}
-
 {% block styles %}
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <!-- Empty div -->
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <div class="col-md-7">
 
-{% block body %}
-  {{block.super}}
+          {% for post in posts %}
 
-  <div class="text-center">
-    <h1 class="text-center">slaygram</h1>
-    <hr>
-    <h3 class="text-center">A simple, fun and creative way to capture and share photos with friends and family</h3>
+            <div class="card">
+              <div class="container">
+                <p>{{post.user.username}}</p>
+              </div>
+              <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
+              <div class="container">
+                <p>{{post.caption}}</p>
+              </div>
+            </div>
+            {% empty %}
+            <p>No posts yet</p>
+          {% endfor %}
+        </div>
+        <div class="col-md-3">
+          <p>
+            {{request.user}}</p>
+          <p>{{request.user.profile.bio}}<br></p>
+
+          <hr>
+        </div>
+      </div>
+
+      <!-- empty div -->
+      <!-- <div class="col-md-2"></div> -->
+    </div>
   </div>
-
 {% endblock %}

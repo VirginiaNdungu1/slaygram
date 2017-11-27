@@ -11,7 +11,8 @@ from .models import Profile, Post
 
 @login_required(login_url='/accounts/login/')
 def index(request):
-    return render(request, 'index.html')
+    posts = Post.display_posts()
+    return render(request, 'index.html', {"posts": posts})
 
 
 @login_required(login_url='/accounts/login/')
