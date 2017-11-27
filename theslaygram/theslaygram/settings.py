@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'instagram.apps.InstagramConfig',
     'bootstrap3',
     'tinymce',
+    'vote',
 ]
 
 MIDDLEWARE = [
