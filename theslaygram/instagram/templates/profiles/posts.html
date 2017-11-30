@@ -2,7 +2,9 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block styles %}
+  {% bootstrap_css %}
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
   <div class="container">
@@ -21,24 +23,38 @@
             <div class="card">
               <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
               <div class="container">
-                <p>{{post.caption}}</p>
-              </div>
-            </div>
-            {% empty %}
-            <p>No posts yet</p>
-          {% endfor %}
-        </div>
-        <div class="col-md-3">
-          <a href="{%url 'updateuserprofile' %}">
-            <div class="form-group">
-              <button type="submit">Edit Profile</button>
-            </div>
-          </a>
-        </div>
-      </div>
+                <a href="{% url 'upvote_post' post.id %}">
+                  <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                  like
+                </a>{{post.upvote_count}}
+                <br>
 
-      <!-- empty div -->
-      <!-- <div class="col-md-2"></div> -->
+                <p>{{post.caption}}</p>
+                <a href="{% url 'downvote_post' post.id %}">
+                  <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                  Dislike
+                </a>{{post.downvote_count}}
+                <br>
+                <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
+              </div>
+
+            </div>
+          </div>
+          {% empty %}
+          <p>No posts yet</p>
+        {% endfor %}
+      </div>
+      <div class="col-md-3">
+        <a href="{%url 'updateuserprofile' %}">
+          <div class="form-group">
+            <button type="submit">Edit Profile</button>
+          </div>
+        </a>
+      </div>
     </div>
+
+    <!-- empty div -->
+    <!-- <div class="col-md-2"></div> -->
   </div>
+</div>
 {% endblock %}
