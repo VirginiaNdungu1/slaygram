@@ -86,7 +86,7 @@ class Review(models.Model):
         User, on_delete=models.CASCADE, related_name="vote")
     pictures = models.ForeignKey(Post, related_name="vote")
     created_at = models.DateTimeField(auto_now_add=True)
-    comments = models.CharField(max_length=140, blank=True)
+    comment = models.CharField(max_length=140, blank=True)
 
     class Meta:
         ordering = ['created_at']
