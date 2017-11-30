@@ -3,11 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from django.http import Http404
-from .forms import UserProfileForm, UserForm, NewPostForm, NewReviewForm
+from .forms import UserProfileForm, UserForm, NewPostForm, VoteForm
 from .models import Profile, Post
+from vote.managers import VotableManager
 
-
+votes = VotableManager()
 # Create your views here.
+
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -80,3 +82,34 @@ def single_post(request, pictures):
     except DoesNotExist:
         raise Http404
     return render(request, "profiles/post.html", {"post": post, "review_form": review_form})
+
+
+@login_required(login_url='/accounts/login')
+def upvote_post(request, pk):
+    post = Post.get_single_post(pk)
+    user = request.user
+    user_id = user.id
+
+    if user.is_authenticated:
+        upvote = post.votes.up(user_id)
+        print(upvote)
+        post.upvote_count = post.votes.count()
+        post.save()
+    return redirect(index)
+    # return render(request, "profiles/post.html", {"post": post, "upvote": upvote})
+
+
+@login_required(login_url='/accounts/login')
+def downvote_post(request, pk):
+    post = Post.get_single_post(pk)
+    user = request.user
+    user_id = user.id
+
+    if user.is_authenticated:
+        downvote = post.votes.down(user_id)
+        print(post.id)
+        print(downvote)
+        print(post.vote_score)
+        post.downvote_count = post.votes.count()
+        post.save()
+    return redirect(index)

@@ -5,6 +5,7 @@ from django.db.models import Q, signals
 from django.dispatch import receiver
 from tinymce.models import HTMLField
 from vote.models import VoteModel
+from vote.managers import VotableManager
 # Create your models here.
 Gender_Choices = (
     ('F', 'female'),
@@ -41,17 +42,19 @@ def save_user_profile(sender, instance, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 
-class Post(models.Model):
+class Post(VoteModel, models.Model):
+    votes = VotableManager()
+
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='post')
     picture = models.ImageField(upload_to='pictures/', blank=True)
     caption = models.TextField(max_length=140)
+    upvote_count = models.PositiveIntegerField(default=0)
+    downvote_count = models.PositiveIntegerField(default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['pub_date']
-
-    # votes = VotableManager()
 
     def save_post(self):
         self.save()
@@ -71,14 +74,19 @@ class Post(models.Model):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
 
+    @classmethod
+    def get_single_post(cls, pk):
+        post = cls.objects.get(pk=pk)
+        # upvote = post.votes.up(id=id)
+        return post
+
 
 class Review(models.Model):
     users = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="vote")
     pictures = models.ForeignKey(Post, related_name="vote")
-    liked = models.BooleanField(default=False, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    comments = models.CharField(max_length=140, blank=True)
+    comment = models.CharField(max_length=140, blank=True)
 
     class Meta:
         ordering = ['created_at']

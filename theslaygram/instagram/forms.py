@@ -20,7 +20,7 @@ class NewPostForm(forms.ModelForm):
         exclude = ['user', 'pub_date']
 
 
-class NewReviewForm(forms.ModelForm):
+class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        exclude = ['users', 'pictures', 'liked', 'created_at']
+        fields = ('comment')
