@@ -23,6 +23,8 @@ class Profile(models.Model):
     gender = models.CharField(
         max_length=30, choices=Gender_Choices, default='None', blank=True)
     philosophy = models.TextField(max_length=500, blank=True)
+    followers = models.ManyToManyField(
+        'Profile', related_name='followed_by', symmetrical=False)
 
 
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
@@ -40,6 +42,11 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+    @classmethod
+    def get_profile(cls, id):
+        profile = cls.objects.filter(user_id=id)
+        return profile
 
 
 class Post(VoteModel, models.Model):
