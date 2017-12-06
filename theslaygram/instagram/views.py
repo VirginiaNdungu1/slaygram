@@ -135,3 +135,31 @@ def downvote_post(request, pk):
         post.downvote_count = post.votes.count()
         post.save()
     return redirect(index)
+
+
+def get_user(request, id):
+    user = User.objects.get(id=2)
+    print(user.username)
+    return user
+
+
+@login_required(login_url='/accounts/login')
+def get_followers(request, pk):
+    post = Post.get_single_post(pk)
+    current_user = request.user
+    user = post.user
+    print(current_user.username)
+    following_profile = current_user.profile.followers.add(user.profile)
+    # follows = current_user.profile.followers.all()
+    print(following_profile)
+    return redirect(index)
+
+# @login_required(login_url='/accounts/login')
+# def get_followers(request, id):
+#     current_user = request.user
+#     user = User.get_user(id)
+#     print(current_user.username)
+#     # user_1.get_profile().follows.add(user_2.get_profile())
+#     following_profile = current_user.get_profile().follows.add(user.get_profile())
+#     following = current_user.get_profile().follows.all()
+#     return followers
