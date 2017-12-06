@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^post/upvote/(\d+)$', views.upvote_post, name="upvote_post"),
     url(r'^post/downvote/(\d+)$', views.downvote_post, name="downvote_post"),
     url(r'^post/comment/(\d+)$', views.post_comment, name="post_comment"),
+    url(r'^profile/follow/(\d+)$', views.get_followers, name="get_followers")
 
 ]
 if settings.DEBUG:
