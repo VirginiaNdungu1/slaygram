@@ -47,3 +47,13 @@
     .upvote {
       margin-right: 3%;
     }
+
+    .follow_section {
+      margin-top: -2.5%;
+      margin-left: 36%;
+    }
+
+    .follow_section button {
+      color: white;
+      background-color: teal;
+    }
