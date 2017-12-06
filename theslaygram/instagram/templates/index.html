@@ -18,7 +18,14 @@
 
             <div class="card">
               <div class="container">
-                <p>{{post.user.username}}</p>
+                <div class="username_section">
+                  <p>{{post.user.username}}</p>
+                </div>
+                <div class="follow_section">
+                  <a href="{% url 'get_followers' post.id %}">
+                    <button type="submit" class="btn btn-md" name="button">Follow</button>
+                  </a>
+                </div>
               </div>
               <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
               <div class="container">
