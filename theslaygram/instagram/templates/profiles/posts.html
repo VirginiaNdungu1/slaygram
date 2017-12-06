@@ -11,62 +11,85 @@
     <div class="row">
       <!-- Empty div -->
       <div class="col-md-2"></div>
-      <div class="col-md-10">
-        <div class="col-md-7">
-          <p>
-            {{request.user}}</p>
-          <p>{{request.user.profile.bio}}<br></p>
-          <a href="https://github.com/VirginiaNdungu1/">
-            {{request.user.profile.portfolio}}</a>
-          <hr>
-          {% for post in posts %}
-            <div class="card">
-              <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
-              <div class="container">
-                <a class="upvote" href="{% url 'upvote_post' post.id %}">
-                  <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <span>
-                    <i class="fa fa-comments-o fa-2x" aria-hidden="true"></i>
-                  </span>
-                </a>
-                <p>{{post.upvote_count}}
-                  likes</p>
-                <br>
+      <div class="col-md-7">
+        <!-- <div class="col-md-7"> -->
+        <p>
+          {{request.user}}</p>
+        <p>{{request.user.profile.bio}}<br></p>
+        <a href="https://github.com/VirginiaNdungu1/">
+          {{request.user.profile.portfolio}}</a>
+        <hr>
 
-                <p>{{post.caption}}</p>
-                <a href="{% url 'downvote_post' post.id %}">
-                  <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
-                  Dislike
-                </a>{{post.downvote_count}}
-                <br>
-                <div class="col-md-4">
-                  <!-- <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment"> -->
-                  <form action="{% url 'post_comment' post.id %}" method="post" enctype="multipart/form-data">
-                    {%csrf_token%}
-                    {% bootstrap_form form%}
-                    <input type="submit" class="btn btn-lg" value="comment">
-                  </form>
+        {% for post in posts %}
+
+          <div class="card">
+            <div class="container">
+              <div class="username_section">
+                <p>{{post.user.username}}</p>
+              </div>
+              <div class="follow_section">
+                <a href="{% url 'get_followers' post.id %}">
+                  <button type="submit" class="btn btn-md" name="button">Follow</button>
+                </a>
+              </div>
+            </div>
+            <img src="{{post.picture.url}}" class="img-responsive" alt="Image">
+            <div class="container">
+              <a href="{% url 'upvote_post' post.id %}">
+                <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                like
+              </a>
+              <span>
+                <i class="fa fa-comments-o fa-2x" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
+              </span>
+
+              <p>{{post.upvote_count}}
+                likes</p>
+              <br>
+              <p>{{post.caption}}</p>
+              <a href="{% url 'downvote_post' post.id %}">
+                <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                Dislike
+              </a>{{post.downvote_count}}
+              <br>
+              <div class="col-md-4">
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <form action="{% url 'post_comment' post.id %}" method="post" enctype="multipart/form-data">
+                          {%csrf_token%}
+                          {% bootstrap_form form%}
+                          <input type="submit" class="btn btn-lg" value="comment">
+                        </form>
+                        <p>Some text in the modal.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-lg" data-dismiss="modal" value="comment">Comment</button>
+                      </div>
+                      <!-- <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment"> -->
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {% empty %}
-          <p>No posts yet</p>
-        {% endfor %}
+            {% empty %}
+            <p>No posts yet</p>
+          {% endfor %}
+        </div>
+        <div class="col-md-3">
+          <a href="{%url 'updateuserprofile' %}">
+            <div class="form-group">
+              <button type="submit">Edit Profile</button>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="col-md-3">
-        <a href="{%url 'updateuserprofile' %}">
-          <div class="form-group">
-            <button type="submit">Edit Profile</button>
-          </div>
-        </a>
-      </div>
-    </div>
 
-    <!-- empty div -->
-    <!-- <div class="col-md-2"></div> -->
+      <!-- empty div -->
+      <!-- <div class="col-md-2"></div> -->
+    </div>
   </div>
-</div>
 {% endblock %}
