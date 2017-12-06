@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.db.models import Q, signals
 from django.dispatch import receiver
@@ -47,6 +47,7 @@ class Post(VoteModel, models.Model):
 
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='post')
+
     picture = models.ImageField(upload_to='pictures/', blank=True)
     caption = models.TextField(max_length=140)
     upvote_count = models.PositiveIntegerField(default=0)
@@ -86,10 +87,20 @@ class Review(models.Model):
         User, on_delete=models.CASCADE, related_name="vote")
     pictures = models.ForeignKey(Post, related_name="vote")
     created_at = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=140, blank=True)
+    comment = models.TextField(max_length=140, blank=True)
 
     class Meta:
         ordering = ['created_at']
 
     def save_review(self):
         self.save()
+
+    @classmethod
+    def get_single_comment(cls, id):
+        comment = cls.objects.get(id=pk)
+        return comment
+
+    @classmethod
+    def get_comments(cls, id):
+        comments = cls.objects.all()
+        return comments
