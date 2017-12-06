@@ -9,7 +9,8 @@ urlpatterns = [
     url(r'^upload/new_post', views.new_post, name="new_post"),
     url(r'^profiles/(\d+)/$', views.posts, name="post"),
     url(r'^post/upvote/(\d+)$', views.upvote_post, name="upvote_post"),
-    url(r'^post/downvote/(\d+)$', views.downvote_post, name="downvote_post")
+    url(r'^post/downvote/(\d+)$', views.downvote_post, name="downvote_post"),
+    url(r'^post/comment/(\d+)$', views.post_comment, name="post_comment"),
 
 ]
 if settings.DEBUG:
