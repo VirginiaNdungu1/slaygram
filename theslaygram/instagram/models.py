@@ -43,11 +43,6 @@ def save_user_profile(sender, instance, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
-    @classmethod
-    def get_profile(cls, id):
-        profile = cls.objects.filter(user_id=id)
-        return profile
-
 
 class Post(VoteModel, models.Model):
     votes = VotableManager()
@@ -97,7 +92,7 @@ class Review(models.Model):
     comment = models.TextField(max_length=140, blank=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
 
     def save_review(self):
         self.save()
