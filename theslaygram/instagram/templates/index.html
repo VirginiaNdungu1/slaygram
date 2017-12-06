@@ -2,7 +2,9 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block styles %}
+  {% bootstrap_css %}
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
   <div class="container">
@@ -23,7 +25,13 @@
                 <a href="{% url 'upvote_post' post.id %}">
                   <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
                   like
-                </a>{{post.upvote_count}}
+                </a>
+                <span>
+                  <i class="fa fa-comments-o fa-2x" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
+                </span>
+
+                <p>{{post.upvote_count}}
+                  likes</p>
                 <br>
                 <p>{{post.caption}}</p>
                 <a href="{% url 'downvote_post' post.id %}">
@@ -31,23 +39,51 @@
                   Dislike
                 </a>{{post.downvote_count}}
                 <br>
-                <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
-              </div>
-            </div>
-            {% empty %}
-            <p>No posts yet</p>
-          {% endfor %}
-        </div>
-        <div class="col-md-3">
-          <p>
-            {{request.user}}</p>
-          <p>{{request.user.profile.bio}}<br></p>
-          <hr>
-        </div>
-      </div>
+                <div class="col-md-4">
+                  <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
 
-      <!-- empty div -->
-      <!-- <div class="col-md-2"></div> -->
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <form action="{% url 'post_comment' post.id %}" method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            {% bootstrap_form form%}
+                            <input type="submit" class="btn btn-lg" value="comment">
+                          </form>
+                          <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-lg" data-dismiss="modal" value="comment">Comment</button>
+                        </div>
+                        <!-- <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment"> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+              <p>No posts yet</p>
+            {% endfor %}
+          </div>
+          <div class="col-md-3">
+            <p>
+              {{request.user}}</p>
+            <p>{{request.user.profile.bio}}<br></p>
+            <hr>
+          </div>
+        </div>
+
+        <!-- empty div -->
+        <!-- <div class="col-md-2"></div> -->
+      </div>
     </div>
-  </div>
-{% endblock %}
+
+  {% endblock %}
+
+  {% block scripts %}
+    {% bootstrap_javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  {% endblock %}
