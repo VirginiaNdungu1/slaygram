@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from django.http import Http404
-from .forms import UserProfileForm, UserForm, ReviewForm
+from .forms import UserProfileForm, UserForm, NewPostForm, ReviewForm
 from .models import Profile, Post
 from vote.managers import VotableManager
 
@@ -14,7 +14,8 @@ votes = VotableManager()
 @login_required(login_url='/accounts/login/')
 def index(request):
     posts = Post.display_posts()
-    return render(request, 'index.html', {"posts": posts})
+    form = ReviewForm()
+    return render(request, 'index.html', {"posts": posts, "form": form})
 
 
 @login_required(login_url='/accounts/login/')
@@ -60,8 +61,29 @@ def new_post(request):
 def posts(request, user_id):
     user_id = request.user.id
     posts = Post.display_users_posts(user_id)
+    form = ReviewForm()
     # return posts
-    return render(request, 'profiles/posts.html', {"posts": posts})
+    return render(request, 'profiles/posts.html', {"posts": posts, "form": form})
+
+
+@login_required(login_url='/accounts/login')
+def post_comment(request, pk):
+    post = Post.get_single_post(pk)
+    # comment = Review.get_single_comment(id)
+    user = request.user
+    current_user = request.user.id
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if user.is_authenticated and form.is_valid():
+            comment = form.save(commit=False)
+            comment.users_id = current_user
+            comment.pictures_id = post.id
+
+            comment.save()
+            return redirect(index)
+    else:
+        form = ReviewForm()
+    # return render(request, 'profiles/posts.html', {"post": post, "form": form})
 
 
 @login_required(login_url='/accounts/login/')
