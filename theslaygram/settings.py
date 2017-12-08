@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = True
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['slaygram.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
