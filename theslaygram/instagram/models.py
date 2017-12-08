@@ -19,7 +19,8 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
     portfolio = models.CharField(max_length=500, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
+    profile_pic = models.ImageField(upload_to='pictures/', blank=True)
+    bio = models.TextField(max_length=140, blank=True)
     gender = models.CharField(
         max_length=30, choices=Gender_Choices, default='None', blank=True)
     philosophy = models.TextField(max_length=500, blank=True)
@@ -46,15 +47,14 @@ post_save.connect(create_user_profile, sender=User)
 
 class Post(VoteModel, models.Model):
     votes = VotableManager()
-
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='post')
-
     picture = models.ImageField(upload_to='pictures/', blank=True)
     caption = models.TextField(max_length=140)
     upvote_count = models.PositiveIntegerField(default=0)
     downvote_count = models.PositiveIntegerField(default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
+    # comments = models.ManyToManyField('Review', related_name="comments")
 
     class Meta:
         ordering = ['pub_date']
@@ -105,4 +105,13 @@ class Review(models.Model):
     @classmethod
     def get_comments(cls, id):
         comments = cls.objects.all()
+        return comments
+
+    @classmethod
+    def get_post_comments(cls, pk):
+        post = Post.get_single_post(pk)
+        comments = []
+        all_comments = Review.objects.filter(pictures_id=post.id).all()
+        comments += all_comments
+        comment_count = len(comments)
         return comments
