@@ -11,7 +11,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('portfolio', 'bio', 'gender')
+        fields = ('portfolio', 'bio', 'gender', 'profile_pic')
 
 
 class NewPostForm(forms.ModelForm):
