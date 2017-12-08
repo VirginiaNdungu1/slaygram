@@ -39,10 +39,6 @@ A simple, fun and creative way to capture and share photos with friends and fami
         Save it on my machine
 
 
-
-## Known Bugs
-Copy image link of the image does not work properly
-
 ## Running / Development
 
 python manage.py runserver
