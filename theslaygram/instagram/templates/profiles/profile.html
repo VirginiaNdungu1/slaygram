@@ -10,7 +10,7 @@
       <!-- Empty div -->
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <form action='/profiles/edit/' method="post">
+        <form action='/profiles/edit/' method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
           {% bootstrap_form user_form %}

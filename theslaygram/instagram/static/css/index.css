@@ -1,45 +1,130 @@
-    h1 {
-      color: teal;
-      text-align: center;
-    }
+h1 {
+  color: teal;
+  text-align: center;
+}
 
-    .login-btn {
-      text-align: center;
-      margin-top: 3%;
-      color: white;
-      background-color: teal;
-    }
+.login-btn {
+  text-align: center;
+  margin-top: 3%;
+  color: white;
+  background-color: teal;
+}
 
-    .login-btn input {
-      background-color: teal;
-    }
+.login-btn input {
+  background-color: teal;
+}
 
-    .panel-heading h3 {
-      font-size: 24px;
-      color: teal;
-    }
+.panel-heading h3 {
+  font-size: 24px;
+  color: teal;
+}
 
-    .edit_profile {
-      /*float: right;*/
-      margin-left: 20%;
-    }
+.profile-section {
+  height: 20%;
+}
 
-    .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      transition: 0.3s;
-      width: 100%;
-      border-radius: 5px;
-      margin-bottom: 5%;
-    }
+img {
+  z-index: -1;
+}
 
-    .card:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
+img .img-circle {
+  border-radius: 50%;
+}
 
-    img {
-      border-radius: 5px 5px 0 0;
-    }
+.user-section {
+  margin-top: 22px;
+  margin-left: 41px;
+  margin-bottom: 28px;
+}
 
-    .card .container {
-      padding: 30px 16px;
-    }
+.post_image {
+  margin-bottom: 5%;
+}
+
+.vote_section p {
+  margin-left: 5%;
+}
+
+p .comment {
+  margin-bottom: 3.5%;
+}
+
+
+/*.follow_section {
+  margin-top: 6px;
+}*/
+
+.follow_section {
+  margin-top: -2.5%;
+  margin-left: 60%;
+}
+
+edit_profile {
+  float: right;
+  margin-left: 70%;
+  margin-top: -34px;
+}
+
+.follow_section button {
+  color: white;
+  background-color: teal;
+}
+
+.download_section {
+  margin-top: -6%;
+  margin-left: 80%;
+}
+
+.download_section button {
+  color: white;
+  background-color: teal;
+}
+
+.download {
+  position: absolute;
+  top: 2%;
+  right: 10%;
+  color: #432543;
+}
+
+.download a:hover {
+  color: #E63D29;
+}
+
+.user-section h4 {
+  color: #2B2A2B;
+  font-weight: bolder;
+  margin-top: 5%;
+}
+
+.card {
+  margin-bottom: 5%;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 5%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.card .container {
+  padding: 30px 16px;
+}
+
+.card .follow-user {
+  padding-bottom: 30px;
+}
+
+.upvote {
+  margin-right: 3%;
+}

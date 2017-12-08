@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.db.models import Q, signals
 from django.dispatch import receiver
@@ -19,10 +19,13 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
     portfolio = models.CharField(max_length=500, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
+    profile_pic = models.ImageField(upload_to='pictures/', blank=True)
+    bio = models.TextField(max_length=140, blank=True)
     gender = models.CharField(
         max_length=30, choices=Gender_Choices, default='None', blank=True)
     philosophy = models.TextField(max_length=500, blank=True)
+    followers = models.ManyToManyField(
+        'Profile', related_name='followed_by', symmetrical=False)
 
 
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
@@ -44,7 +47,6 @@ post_save.connect(create_user_profile, sender=User)
 
 class Post(VoteModel, models.Model):
     votes = VotableManager()
-
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='post')
     picture = models.ImageField(upload_to='pictures/', blank=True)
@@ -52,6 +54,7 @@ class Post(VoteModel, models.Model):
     upvote_count = models.PositiveIntegerField(default=0)
     downvote_count = models.PositiveIntegerField(default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
+    # comments = models.ManyToManyField('Review', related_name="comments")
 
     class Meta:
         ordering = ['pub_date']
@@ -86,10 +89,29 @@ class Review(models.Model):
         User, on_delete=models.CASCADE, related_name="vote")
     pictures = models.ForeignKey(Post, related_name="vote")
     created_at = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=140, blank=True)
+    comment = models.TextField(max_length=140, blank=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
 
     def save_review(self):
         self.save()
+
+    @classmethod
+    def get_single_comment(cls, id):
+        comment = cls.objects.get(id=pk)
+        return comment
+
+    @classmethod
+    def get_comments(cls, id):
+        comments = cls.objects.all()
+        return comments
+
+    @classmethod
+    def get_post_comments(cls, pk):
+        post = Post.get_single_post(pk)
+        comments = []
+        all_comments = Review.objects.filter(pictures_id=post.id).all()
+        comments += all_comments
+        comment_count = len(comments)
+        return comments

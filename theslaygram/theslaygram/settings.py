@@ -88,7 +88,9 @@ DATABASES = {
         'PASSWORD': 'Hummingbirdcomp#',
     }
 }
-
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("image/jpg", ".jpg", True)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
