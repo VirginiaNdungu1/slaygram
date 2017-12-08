@@ -1,1 +1,1 @@
-web:gunicorn theslaygram.wsgi 
+web: gunicorn theslaygram.wsgi --log-file -
