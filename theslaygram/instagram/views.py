@@ -4,13 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from django.http import Http404
-<<<<<<< HEAD
-from .forms import UserProfileForm, UserForm, NewPostForm
-from .models import Profile, Post
-=======
 from .forms import UserProfileForm, UserForm, NewPostForm, ReviewForm
 from .models import Profile, Post, Review
->>>>>>> beb04a541bdec91e621c0604f9c264f8495108a0
 from vote.managers import VotableManager
 from theslaygram import settings
 votes = VotableManager()
