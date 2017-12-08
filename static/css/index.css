@@ -41,12 +41,42 @@ img .img-circle {
   margin-bottom: 5%;
 }
 
+.vote_section {
+  margin-bottom: 10%;
+}
+
+.vote_section a .download {
+  margin-left: 0%;
+}
+
 .vote_section p {
   margin-left: 5%;
 }
 
 p .comment {
   margin-bottom: 3.5%;
+}
+
+.post_section {
+  margin-bottom: 10%;
+}
+
+.username_section {
+  margin-top: -2.5%;
+  margin-left: 5%;
+}
+
+.user_profile {
+  margin-top: -6%;
+  margin-right: 5%;
+}
+
+.username_section h5 {
+  position: absolute;
+  margin-top: 2.5%;
+  margin-left: 5%;
+  color: #262626;
+  margin-bottom: -5%;
 }
 
 
@@ -81,14 +111,27 @@ edit_profile {
 }
 
 .download {
+  float: right;
+  color: teal;
+  margin-right: 6%;
+}
+
+.download_icon {
   position: absolute;
-  top: 2%;
-  right: 10%;
-  color: #432543;
+  margin-left: 83%;
+  top: 1.5%;
 }
 
 .download a:hover {
-  color: #E63D29;
+  color: #7B241C;
+}
+
+.like-section {
+  margin-left: -30%;
+}
+
+.comment-icon {
+  margin-left: 4%;
 }
 
 .user-section h4 {
