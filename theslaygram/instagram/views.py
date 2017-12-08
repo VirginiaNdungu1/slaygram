@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from django.http import Http404
-from .forms import UserProfileForm, UserForm, NewPostForm, VoteForm
+from .forms import UserProfileForm, UserForm, NewPostForm
 from .models import Profile, Post
 from vote.managers import VotableManager
 
