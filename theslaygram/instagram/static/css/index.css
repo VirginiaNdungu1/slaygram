@@ -19,11 +19,6 @@ h1 {
   color: teal;
 }
 
-.edit_profile {
-  margin-left: 212px;
-  margin-top: 3%p;
-}
-
 .profile-section {
   height: 20%;
 }
@@ -62,6 +57,12 @@ p .comment {
 .follow_section {
   margin-top: -2.5%;
   margin-left: 60%;
+}
+
+edit_profile {
+  float: right;
+  margin-left: 70%;
+  margin-top: -34px;
 }
 
 .follow_section button {
