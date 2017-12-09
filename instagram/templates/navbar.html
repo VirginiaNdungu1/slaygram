@@ -47,22 +47,24 @@
             <!-- action="/" -->
             {% if user.is_authenticated %}
               <li>
-                <a href="/">discover</a>
+                <a href="{%url 'get_users'%}">discover</a>
               </li>
               <li>
-                <a href="/">following</a>
+                <a href="/">slaygram</a>
               </li>
               <li>
                 <a href="{% url 'post' user.id %}">{{ user.username }}</a>
               </li>
               <li>
-                <a href="/logout">Logout</a>
+                <a href="/logout">logout</a>
               </li>
             {% else %}
               <li>
-                <a class='btn btn-default' href="/accounts/login">Login</a>
+                <a href="{%url 'get_users'%}">discover</a>
               </li>
-              <li></li>
+              <li>
+                <a href="/accounts/login">login</a>
+              </li>
             {% endif %}
           </ul>
         </div>
