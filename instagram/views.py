@@ -5,6 +5,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.http import Http404
 from .forms import UserProfileForm, UserForm, NewPostForm, ReviewForm
+from django.contrib.auth.models import User, Group
 from .models import Profile, Post, Review
 from vote.managers import VotableManager
 from theslaygram import settings
@@ -206,3 +207,17 @@ def get_comments(request, pk):
     comments += all_comments
     comment_count = len(comments)
     return render(request, 'index.html', {"comments": comments})
+
+
+@login_required(login_url='/accounts/login')
+def get_users(request):
+    users = User.objects.all()
+
+    return render(request, 'discover.html', {"users": users})
+
+
+@login_required(login_url='/accounts/login')
+def discover(request, id):
+    user = User.objects.get(id=pk)
+    following_profile = current_user.profile.followers.add(user.profile)
+    return redirect(get_users)
