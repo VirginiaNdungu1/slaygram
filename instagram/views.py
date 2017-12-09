@@ -158,12 +158,6 @@ def downvote_post(request, pk):
     return redirect(index)
 
 
-def get_user(request, id):
-    user = User.objects.get(id=2)
-    print(user.username)
-    return user
-
-
 @login_required(login_url='/accounts/login')
 def follow(request, pk):
     post = Post.get_single_post(pk)
@@ -211,14 +205,18 @@ def get_comments(request, pk):
 
 @login_required(login_url='/accounts/login')
 def get_users(request):
+    current_user = request.user
     users = User.objects.all()
-
+    for user in users:
+        following_profile = current_user.profile.followers.add(user.profile)
     return render(request, 'discover.html', {"users": users})
 
 
 @login_required(login_url='/accounts/login')
 def discover(request, id):
     current_user = request.user
-    user = User.objects.get(id=pk)
-    following_profile = current_user.profile.followers.add(user.profile)
-    return redirect(get_users)
+    follow_user = Profile.get_single_user(id=pk)
+    following_user = User.objects.get(pk=follow_user.id)
+    following_profile = current_user.profile.followers.add(
+        following_user.profile)
+    return redirect(posts)
