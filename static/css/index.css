@@ -171,3 +171,40 @@ img {
 .upvote {
   margin-right: 3%;
 }
+
+.gallery {
+  width: 100%;
+}
+
+.gallery .heading h5 {
+  color: #95A5A6;
+}
+
+.gallery .card {
+  display: block;
+  float: left;
+  position: relative;
+  width: 30%;
+  min-width: 128px;
+  margin-right: 3%;
+}
+
+.gallery .card .feature {
+  text-align: center;
+}
+
+.gallery .card figcaption {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.gallery .card .disover_follow {
+  text-align: center;
+  margin-bottom: 5%;
+  color: white;
+}
+
+.gallery .card .disover_follow button {
+  color: white;
+  background-color: teal;
+}
