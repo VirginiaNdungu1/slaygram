@@ -45,6 +45,12 @@ def save_user_profile(sender, instance, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 
+@classmethod
+def get_single_user(cls, pk):
+    user_profile = cls.objects.get(pk=pk)
+    return user_profile
+
+
 class Post(VoteModel, models.Model):
     votes = VotableManager()
     user = models.ForeignKey(
