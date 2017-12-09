@@ -215,8 +215,14 @@ def get_users(request):
 @login_required(login_url='/accounts/login')
 def discover(request, id):
     current_user = request.user
+<<<<<<< HEAD
     follow_user = Profile.get_single_user(id=pk)
     following_user = User.objects.get(pk=follow_user.id)
     following_profile = current_user.profile.followers.add(
         following_user.profile)
     return redirect(posts)
+=======
+    user = User.objects.get(id=pk)
+    following_profile = current_user.profile.followers.add(user.profile)
+    return redirect(get_users)
+>>>>>>> 94fd8e9c2556aa2c87dd64de8c03523274486ce3
