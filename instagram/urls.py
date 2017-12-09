@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^profile/follow/(\d+)$', views.follow, name="follow"),
     url(r'^post/download/(\d+)$', views.download_image, name="download_image"),
     url(r'^post/comments/(\d+)$', views.get_comments, name="get_comments"),
+    url(r'^discover', views.get_users, name="get_users"),
+    url(r'^discover/follow/(\d+)$', views.discover, name="discover"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
